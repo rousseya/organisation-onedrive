@@ -113,6 +113,7 @@ def main():
                         'filename': existing_record['original_filename'],
                         'confidence': existing_record['confidence'] / 100 if existing_record['confidence'] else 0,
                         'content': '',
+                        'description': existing_record.get('description', ''),
                         'ai_result': {
                             'document_type': existing_record['document_type'],
                             'source': 'database_cache',
@@ -181,7 +182,8 @@ def main():
                     'organized_path': str(Path(output_path) / item.get('category') / (item.get('renamed_filename', item.get('filename')).replace('.pdf', '') + '.pdf')),
                     'source_paths': [str(item.get('path'))],
                     'confidence': item.get('confidence', 0) * 100,
-                    'document_type': item.get('ai_result', {}).get('document_type', 'Unknown')
+                    'document_type': item.get('ai_result', {}).get('document_type', 'Unknown'),
+                    'description': item.get('description', '')
                 })
         
         # Afficher les statistiques de la base de données

@@ -44,10 +44,21 @@ class PDFDatabase:
                         source_paths TEXT NOT NULL,
                         confidence REAL,
                         document_type TEXT,
+                        description TEXT,
                         processing_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                         last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     )
                 ''')
+                
+                # Add description column if it doesn't exist (for existing databases)
+                cursor.execute("PRAGMA table_info(pdfs)")
+                columns = [column[1] for column in cursor.fetchall()]
+                if 'description' not in columns:
+                    try:
+                        cursor.execute('ALTER TABLE pdfs ADD COLUMN description TEXT')
+                        logger.info("Added 'description' column to pdfs table")
+                    except sqlite3.OperationalError:
+                        pass  # Column already exists
                 
                 # Create index on md5_hash for faster lookups
                 cursor.execute('''
@@ -121,6 +132,7 @@ class PDFDatabase:
                 - source_path: Original source path
                 - confidence: Classification confidence
                 - document_type: Type of document
+                - description: AI-generated description
         
         Returns:
             True if successful, False otherwise
@@ -147,6 +159,7 @@ class PDFDatabase:
                         source_paths = ?,
                         confidence = ?,
                         document_type = ?,
+                        description = ?,
                         last_updated = CURRENT_TIMESTAMP
                     WHERE md5_hash = ?
                 ''', (
@@ -158,6 +171,7 @@ class PDFDatabase:
                     source_paths_json,
                     pdf_data.get('confidence'),
                     pdf_data.get('document_type'),
+                    pdf_data.get('description'),
                     pdf_data.get('md5_hash')
                 ))
                 
@@ -167,8 +181,8 @@ class PDFDatabase:
                         INSERT INTO pdfs (
                             md5_hash, perceptual_hash, original_filename,
                             category, organized_filename, organized_path,
-                            source_paths, confidence, document_type
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            source_paths, confidence, document_type, description
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ''', (
                         pdf_data.get('md5_hash'),
                         pdf_data.get('perceptual_hash'),
@@ -178,7 +192,8 @@ class PDFDatabase:
                         pdf_data.get('organized_path'),
                         source_paths_json,
                         pdf_data.get('confidence'),
-                        pdf_data.get('document_type')
+                        pdf_data.get('document_type'),
+                        pdf_data.get('description')
                     ))
                 
                 conn.commit()
