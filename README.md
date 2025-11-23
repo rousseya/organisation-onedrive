@@ -57,8 +57,8 @@ cp .env.example .env
 uv run organize_pdfs.py
 
 # Méthode 2 : Activer l'environnement virtuel d'abord
-.venv\Scripts\Activate.ps1    # Windows PowerShell
-source .venv/bin/activate     # Linux/Mac
+.venv-1\Scripts\Activate.ps1    # Windows PowerShell
+source .venv-1/bin/activate     # Linux/Mac
 python organize_pdfs.py
 ```
 
@@ -71,14 +71,6 @@ uv add pydantic
 # Ajouter une dépendance de développement
 uv add --dev pytest
 ```
-
-### Exécuter les tests
-
-```bash
-uv run -m pytest tests/
-```
-
-### Mettre à jour les dépendances
 
 ```bash
 # Mettre à jour toutes les dépendances
@@ -161,23 +153,24 @@ Exemple:
 organisation-onedrive/
 ├── src/
 │   ├── __init__.py
-│   ├── pdf_extractor.py        # Extraction du contenu et hachage des PDFs
-│   ├── pdf_classifier.py       # Classification par catégorie (keywords + AI)
-│   ├── pdf_database.py         # Gestion SQLite, caching et déduplication
-│   ├── pdf_organizer.py        # Organisation des fichiers
-│   ├── pdf_documentation.py    # Génération de markdown avec métadonnées
-│   ├── pdf_renamer.py          # Renommage intelligent des fichiers
-│   └── pdf_ai_analyzer_v2.py   # Analyse IA avec Mistral Vision
+│   ├── pdf_extractor.py            # Extraction du contenu et hachage des PDFs
+│   ├── pdf_classifier.py           # Classification par catégorie (keywords + AI)
+│   ├── pdf_database.py             # Gestion SQLite, caching et déduplication
+│   ├── pdf_organizer.py            # Organisation des fichiers
+│   ├── pdf_documentation.py        # Génération de markdown avec métadonnées
+│   ├── pdf_renamer.py              # Renommage intelligent des fichiers
+│   ├── pdf_ai_analyzer.py          # Analyseur IA (version stable)
+│   └── pdf_ai_analyzer_v2.py       # Analyseur IA avec Mistral Vision
 ├── config/
-│   └── categories.json         # Configuration des catégories et keywords
-├── .venv-1/                    # Environnement virtuel (créé par uv)
-├── pyproject.toml              # Configuration du projet et dépendances
-├── uv.lock                     # Verrous des dépendances (versionning reproductible)
-├── .python-version             # Version Python pour uv
-├── .env                        # Configuration (ne pas commiter)
-├── .env.example                # Exemple de configuration
-├── organize_pdfs.py            # Script principal d'organisation
-└── README.md                   # Ce fichier
+│   └── categories.json             # Configuration des catégories et keywords
+├── organize_pdfs.py                # Script principal d'organisation
+├── pyproject.toml                  # Configuration du projet et dépendances
+├── uv.lock                         # Verrous des dépendances (versionning reproductible)
+├── .python-version                 # Version Python pour uv (3.13.0)
+├── .env                            # Configuration (ne pas commiter)
+├── .env.example                    # Exemple de configuration
+├── .gitignore                      # Fichiers à ignorer dans git
+└── README.md                       # Ce fichier
 ```
 
 ## Utilisation SQLite
