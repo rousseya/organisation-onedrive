@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "Santé": {
+      "keywords": ["vaccination", "vaccin", "médecin", "santé", "hopital", "devis", "permis", "médical", "docteur", "ordonnance", "rx"],
+      "folder": "Santé"
+    },
+    "Finances": {
+      "keywords": ["facture", "invoice", "paiement", "bancaire", "compte", "coordonnees", "fortuneo", "virement", "devis", "puk"],
+      "folder": "Finances"
+    },
+    "Internet et Télécom": {
+      "keywords": ["internet", "sosh", "freebox", "free", "sim", "fibre", "orange", "ligne", "connexion"],
+      "folder": "Internet et Télécom"
+    },
+    "Documents Identité": {
+      "keywords": ["passeport", "permis", "licence", "identité", "document", "japon"],
+      "folder": "Documents Identité"
+    },
+    "Loisirs et Culture": {
+      "keywords": ["randonnée", "cascade", "robots", "cite", "sciences", "topo", "verdon", "loisir", "excursion"],
+      "folder": "Loisirs et Culture"
+    },
+    "Administratif": {
+      "keywords": ["mandate", "demande", "autorisation", "stop-pub", "autocollant", "adminis"],
+      "folder": "Administratif"
+    },
+    "Études et Exercices": {
+      "keywords": ["exercice", "synthèse", "catholique", "orthodoxe", "analyse"],
+      "folder": "Études et Exercices"
+    },
+    "Autre": {
+      "keywords": [],
+      "folder": "Autre"
+    }
+  }
+}
